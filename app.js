@@ -3,6 +3,7 @@ function handleOrientation(event) {
   updateFieldIfNotNull("Orientation_b", event.beta);
   updateFieldIfNotNull("Orientation_g", event.gamma);
   incrementEventCount();
+  sendToServer({ x: event.beta, y: event.gamma, z: event.alpha });
 }
 
 function incrementEventCount() {
@@ -44,6 +45,7 @@ function handleMotion(event) {
 
 let is_running = false;
 let demo_button = document.getElementById("start_demo");
+
 demo_button.onclick = function (e) {
   e.preventDefault();
 
@@ -72,21 +74,19 @@ demo_button.onclick = function (e) {
   }
 };
 
-/*
-Light and proximity are not supported anymore by mainstream browsers.
-window.addEventListener('devicelight', function(e) {
- document.getElementById("DeviceLight").innerHTML="AmbientLight current Value: "+e.value+" Max: "+e.max+" Min: "+e.min;
-});
-
-window.addEventListener('lightlevel', function(e) {
- document.getElementById("Lightlevel").innerHTML="Light level: "+e.value;
-});
-
-window.addEventListener('deviceproximity', function(e) {
- document.getElementById("DeviceProximity").innerHTML="DeviceProximity current Value: "+e.value+" Max: "+e.max+" Min: "+e.min;
-});
-
-window.addEventListener('userproximity', function(event) {
- document.getElementById("UserProximity").innerHTML="UserProximity: "+event.near;
-});
-*/
+function sendToServer(data = {}) {
+  fetch("http://localhost:80/echo/json", {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify(data),
+  })
+    .then(function (res) {
+      console.log(res);
+    })
+    .catch(function (res) {
+      console.log(res);
+    });
+}
