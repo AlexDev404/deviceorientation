@@ -1,5 +1,7 @@
 const express = require("express");
+const cors = require("cors")
 const app = express();
+app.use(cors())
 
 // Let's start parsing the incoming body as JSON
 // We'll use the middleware ExpressJSON, which is based upon BodyParser

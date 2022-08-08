@@ -75,7 +75,7 @@ demo_button.onclick = function (e) {
 };
 
 function sendToServer(data = {}) {
-  fetch("http://localhost:80/echo/json", {
+  fetch("http://192.168.199.149:80/echo/json", {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
