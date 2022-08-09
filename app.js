@@ -18,7 +18,7 @@ function handleOrientation(event) {
   incrementEventCount();
   // sendToServer({ x: event.beta, y: event.gamma, z: event.alpha }, "ws://192.168.199.149:8010/");
   if (wsOpen) {
-    ws.send({ x: event.beta, y: event.gamma, z: event.alpha });
+    ws.send(JSON.stringify({ x: event.beta, y: event.gamma, z: event.alpha }));
   }
 }
 
