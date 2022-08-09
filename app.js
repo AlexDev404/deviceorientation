@@ -89,22 +89,3 @@ demo_button.onclick = function (e) {
     is_running = true;
   }
 };
-
-// function sendToServer(data= {}, address) {
-
-// 	if ("WebSocket" in window) {
-// 		// Let us open a web socket
-// 		var ws = new WebSocket(address);
-// 		var ws = new WebSocket("ws://192.168.199.149:8010/");
-
-// 		ws.onopen = function() {
-
-// 			// Web Socket is connected, send data using send()
-// 			ws.send(data);
-// 		};
-// 	} else {
-
-// 		// The browser doesn't support WebSocket
-// 		console.log("COMPATCHECK - WebSocket NOT supported by your Browser!");
-// 	}
-// }
