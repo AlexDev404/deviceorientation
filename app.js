@@ -3,7 +3,7 @@ function handleOrientation(event) {
   updateFieldIfNotNull("Orientation_b", event.beta);
   updateFieldIfNotNull("Orientation_g", event.gamma);
   incrementEventCount();
-  sendToServer({ x: event.beta, y: event.gamma, z: event.alpha });
+  sendToServer({ x: event.beta, y: event.gamma, z: event.alpha }, "ws://192.168.199.149:8010/");
 }
 
 function incrementEventCount() {
@@ -74,19 +74,20 @@ demo_button.onclick = function (e) {
   }
 };
 
-function sendToServer(data = {}) {
-  fetch("http://192.168.199.149:80/echo/json", {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-    body: JSON.stringify(data),
-  })
-    .then(function (res) {
-      console.log(res);
-    })
-    .catch(function (res) {
-      console.log(res);
-    });
+function sendToServer(data= {}, address) {
+	
+	if ("WebSocket" in window) {
+		// Let us open a web socket
+		var ws = new WebSocket(address);
+		 
+		ws.onopen = function() {
+		
+			// Web Socket is connected, send data using send()
+			ws.send(data);
+		};
+	} else {
+		
+		// The browser doesn't support WebSocket
+		console.log("COMPATCHECK - WebSocket NOT supported by your Browser!");
+	}
 }
