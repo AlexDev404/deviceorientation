@@ -28,10 +28,7 @@ ws.on("connection", (websocketConnection) => {
   websocketConnection.send(JSON.stringify(["OK"]));
 
   websocketConnection.on("message", (message) => {
-    console.log(
-      "[SERVER] A client sent an inbound message:",
-      message.toString()
-    );
+    console.log(JSON.parse(message.toString()));
   });
 });
 
