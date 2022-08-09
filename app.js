@@ -1,9 +1,25 @@
+let ws;
+const address = "ws://192.168.199.149:8010/";
+let wsOpen = false;
+if ("WebSocket" in window) {
+  // Let us open a web socket
+  ws = new WebSocket(address);
+
+  ws.onopen = function () {
+    // Web Socket is connected, send data using send()
+    wsOpen = true;
+  };
+}
+
 function handleOrientation(event) {
   updateFieldIfNotNull("Orientation_a", event.alpha);
   updateFieldIfNotNull("Orientation_b", event.beta);
   updateFieldIfNotNull("Orientation_g", event.gamma);
   incrementEventCount();
-  sendToServer({ x: event.beta, y: event.gamma, z: event.alpha }, "ws://192.168.199.149:8010/");
+  // sendToServer({ x: event.beta, y: event.gamma, z: event.alpha }, "ws://192.168.199.149:8010/");
+  if (wsOpen) {
+    ws.send({ x: event.beta, y: event.gamma, z: event.alpha });
+  }
 }
 
 function incrementEventCount() {
@@ -74,20 +90,21 @@ demo_button.onclick = function (e) {
   }
 };
 
-function sendToServer(data= {}, address) {
-	
-	if ("WebSocket" in window) {
-		// Let us open a web socket
-		var ws = new WebSocket(address);
-		 
-		ws.onopen = function() {
-		
-			// Web Socket is connected, send data using send()
-			ws.send(data);
-		};
-	} else {
-		
-		// The browser doesn't support WebSocket
-		console.log("COMPATCHECK - WebSocket NOT supported by your Browser!");
-	}
-}
+// function sendToServer(data= {}, address) {
+
+// 	if ("WebSocket" in window) {
+// 		// Let us open a web socket
+// 		var ws = new WebSocket(address);
+// 		var ws = new WebSocket("ws://192.168.199.149:8010/");
+
+// 		ws.onopen = function() {
+
+// 			// Web Socket is connected, send data using send()
+// 			ws.send(data);
+// 		};
+// 	} else {
+
+// 		// The browser doesn't support WebSocket
+// 		console.log("COMPATCHECK - WebSocket NOT supported by your Browser!");
+// 	}
+// }
