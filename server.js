@@ -43,13 +43,14 @@ ws.on("connection", (websocketConnection) => {
         nativeX / 2;
 
       // Prevent Zero-Error
-      if (x < 0) {
-        x = nativeX / 2; // If zero, center
-      }
+      // if (x < 0) {
+      //   x = nativeX / 2; // If zero, center
+      // }
 
       // Prevent Overflow-Error
-      if (x > nativeX) {
-        x = nativeX;
+      if (x < 0) {
+        // x = nativeX;
+        x = (x + 1536) * -1; // Artifical crap just like in y haha
       }
       mouseX = x;
     })();
