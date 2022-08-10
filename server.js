@@ -36,22 +36,25 @@ ws.on("connection", (websocketConnection) => {
 
     let mouseX;
     (() => {
-      let x =
-        Math.round((((Math.round(parseFloat(data.x) * (nativeX / 10)) * 10) / nativeX) *
+      let x = Math.round(
+        (((Math.round(parseFloat(data.x) * (nativeX / 10)) * 10) / nativeX) *
           nativeX) /
           100 +
-        nativeX / 2);
+          nativeX / 2
+      );
 
       // Prevent Zero-Error
       // if (x < 0) {
       //   x = nativeX / 2; // If zero, center
       // }
 
-      // Prevent Overflow-Error
+      // Prevent Continuity-Error for the left-hand side
       if (x < 0) {
         // x = nativeX;
-        x = (x + 1536) * -1; // Artifical crap just like in y haha
+        x = (x + 1536) * -1; // Artifical crap just like in Y haha
       }
+
+
       mouseX = x;
     })();
 
@@ -62,12 +65,13 @@ ws.on("connection", (websocketConnection) => {
     // nativeY / 2;
 
     (() => {
-      let y =
-        Math.round((((Math.round(parseFloat(data.y) * (nativeY / 10)) * (nativeY / 10)) /
+      let y = Math.round(
+        (((Math.round(parseFloat(data.y) * (nativeY / 10)) * (nativeY / 10)) /
           nativeY) *
           nativeY) /
           220 -
-        5000 * -1); // Math hack lmao
+          5000 * -1
+      ); // Math hack lmao
       //+ (nativeY / 2) * 8;
 
       // if(y > 530){
@@ -85,7 +89,7 @@ ws.on("connection", (websocketConnection) => {
       //   y = 0;
       // }
 
-      // Prevent Overflow-Error
+      // Prevent Continuity-Error and flip stuff up
       if (y > 5000) {
         y = y - 9543; // If zero, we artifically modify shit
       }
