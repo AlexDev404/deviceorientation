@@ -44,7 +44,7 @@ ws.on("connection", (websocketConnection) => {
 
       // Prevent Zero-Error
       if (x < 0) {
-        x = 0;
+        x = nativeX / 2; // If zero, center
       }
 
       // Prevent Overflow-Error
@@ -62,16 +62,16 @@ ws.on("connection", (websocketConnection) => {
 
     (() => {
       let y =
-        (((Math.round(parseFloat(data.y)) * (nativeY / 10) * (nativeY / 10)) /
+        (((Math.round(parseFloat(data.y) * (nativeY / 10)) * (nativeY / 10)) /
           nativeY) *
           nativeY) /
-         200 +
-        (nativeY / 2) * 8;
+          220 -
+        5000 * -1; // Math hack lmao
+      //+ (nativeY / 2) * 8;
 
-
-        if(y > 530){
-          y = y - 300
-        }
+      // if(y > 530){
+      //   y = y - 300
+      // }
 
       // Prevent Zero-Error
       // if (y < nativeY / 2 - 50) {
@@ -85,9 +85,9 @@ ws.on("connection", (websocketConnection) => {
       // }
 
       // Prevent Overflow-Error
-      // if (y > nativeY) {
-      //   y = nativeY/2;
-      // }
+      if (y > 5000) {
+        y = y - 9543; // If zero, we artifically modify shit
+      }
       // Prevent Overflow-Error
       // if (y > (nativeY / 2)*-1) {
       //   y = nativeY / 2;
