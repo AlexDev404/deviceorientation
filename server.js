@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 const WebSocketServer = require("ws").Server;
+const { user32 } = require("./modules/ffi");
+const nativeX = user32.GetSystemMetrics(0);
+const nativeY = user32.GetSystemMetrics(1);
 const port = 8010;
 
 const server = app.listen(port, () => {
@@ -28,9 +31,79 @@ ws.on("connection", (websocketConnection) => {
   websocketConnection.send(JSON.stringify(["OK"]));
 
   websocketConnection.on("message", (message) => {
-    console.log(JSON.parse(message.toString()));
+    let data = JSON.parse(message.toString());
+    // console.log(data);
+
+    let mouseX;
+    (() => {
+      let x =
+        (((Math.round(parseFloat(data.x) * (nativeX / 10)) * 10) / nativeX) *
+          nativeX) /
+          100 +
+        nativeX / 2;
+
+      // Prevent Zero-Error
+      if (x < 0) {
+        x = 0;
+      }
+
+      // Prevent Overflow-Error
+      if (x > nativeX) {
+        x = nativeX;
+      }
+      mouseX = x;
+    })();
+
+    let mouseY;
+    // Calculation explanation
+    //   (((accel_y * floor_resY * floor_resY) / nativeY) * nativeY) /
+    //   speed +
+    // nativeY / 2;
+
+    (() => {
+      let y =
+        (((Math.round(parseFloat(data.y)) * (nativeY / 10) * (nativeY / 10)) /
+          nativeY) *
+          nativeY) /
+         200 +
+        (nativeY / 2) * 8;
+
+
+        if(y > 530){
+          y = y - 300
+        }
+
+      // Prevent Zero-Error
+      // if (y < nativeY / 2 - 50) {
+      //   // y = nativeY / 2 - 50;
+      //   y = y;
+      // }
+
+      // Prevent Zero-Error
+      // if (y < 0) {
+      //   y = 0;
+      // }
+
+      // Prevent Overflow-Error
+      // if (y > nativeY) {
+      //   y = nativeY/2;
+      // }
+      // Prevent Overflow-Error
+      // if (y > (nativeY / 2)*-1) {
+      //   y = nativeY / 2;
+      // }
+
+      // Set to filtered-y
+
+      mouseY = y;
+    })();
+
+    user32.SetCursorPos(mouseX, mouseY);
+    console.log(mouseX, mouseY);
   });
 });
+
+// (((0.5 * 1920 * 100) / 1920) * 1920) / 100;
 
 ws.on("close", () => {
   console.log("[CONNECTION] Client has disconnected.");
