@@ -37,10 +37,10 @@ ws.on("connection", (websocketConnection) => {
     let mouseX;
     (() => {
       let x =
-        (((Math.round(parseFloat(data.x) * (nativeX / 10)) * 10) / nativeX) *
+        Math.round((((Math.round(parseFloat(data.x) * (nativeX / 10)) * 10) / nativeX) *
           nativeX) /
           100 +
-        nativeX / 2;
+        nativeX / 2);
 
       // Prevent Zero-Error
       // if (x < 0) {
@@ -63,11 +63,11 @@ ws.on("connection", (websocketConnection) => {
 
     (() => {
       let y =
-        (((Math.round(parseFloat(data.y) * (nativeY / 10)) * (nativeY / 10)) /
+        Math.round((((Math.round(parseFloat(data.y) * (nativeY / 10)) * (nativeY / 10)) /
           nativeY) *
           nativeY) /
           220 -
-        5000 * -1; // Math hack lmao
+        5000 * -1); // Math hack lmao
       //+ (nativeY / 2) * 8;
 
       // if(y > 530){
