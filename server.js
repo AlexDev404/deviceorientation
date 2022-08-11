@@ -33,7 +33,10 @@ ws.on("connection", (websocketConnection) => {
   websocketConnection.on("message", (message) => {
     let data = JSON.parse(message.toString());
     // console.log(data);
-    console.log(data.clicked)
+    if (data.clicked != "undefined") {
+      console.log(data.clicked);
+      return;
+    }
     let mouseX;
     (() => {
       let x = Math.round(
@@ -53,7 +56,6 @@ ws.on("connection", (websocketConnection) => {
         // x = nativeX;
         x = (x + 1536) * -1; // Artifical crap just like in Y haha
       }
-
 
       mouseX = x;
     })();

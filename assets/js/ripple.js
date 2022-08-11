@@ -1,5 +1,3 @@
-window.clicked = false;
-
 //Ripple Event Handler
 function drawRipple(ev) {
   let x = ev.clientX;
@@ -10,12 +8,12 @@ function drawRipple(ev) {
   newNode.style.left = ev.clientX - 5 + "px";
   newNode.style.top = ev.clientY - 5 + "px";
   node.parentNode.replaceChild(newNode, node);
-  window.clicked = false;
+
 }
 
 //Ripple Triggers
 window.addEventListener("click", (event) => {
-  window.clicked = true;
+  handleOrientation(false, true)
   drawRipple(event);
 });
 

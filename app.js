@@ -11,7 +11,7 @@ if ("WebSocket" in window) {
   };
 }
 
-function handleOrientation(event) {
+function handleOrientation(event, clickEvent) {
   // updateFieldIfNotNull("Orientation_a", event.alpha);
   // updateFieldIfNotNull("Orientation_b", event.beta);
   // updateFieldIfNotNull("Orientation_g", event.gamma);
@@ -21,7 +21,11 @@ function handleOrientation(event) {
  // incrementEventCount();
   // sendToServer({ x: event.beta, y: event.gamma, z: event.alpha }, "ws://192.168.199.149:8010/");
   if (wsOpen) {
-    ws.send(JSON.stringify({ x: event.beta, y: event.gamma, z: event.alpha, clicked: window.clicked }));
+    if(clickEvent){
+      ws.send(JSON.stringify({ clicked: clickEvent}));
+      return;
+    }
+    ws.send(JSON.stringify({ x: event.beta, y: event.gamma, z: event.alpha}));
   }
 }
 
