@@ -88,7 +88,7 @@ let is_running = false;
   }
 })();
 
-setTimeout(() => {
+function bodyFullscreen() {
   if (document.body.requestFullscreen) {
     document.body.requestFullscreen();
   } else if (document.body.webkitRequestFullscreen) {
@@ -98,4 +98,4 @@ setTimeout(() => {
     /* IE11 */
     document.body.msRequestFullscreen();
   }
-}, 2000);
+}

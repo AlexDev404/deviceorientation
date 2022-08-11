@@ -10,17 +10,29 @@
       Sensors
     </title>
     <title>JavaScript Sensor Access Demo</title>
-    <link rel="stylesheet" href="./assets/css/ripple.css">
+    <link rel="stylesheet" href="./assets/css/ripple.css" />
     <script src="./assets/js/ripple.js" defer></script>
   </head>
   <body class="dark">
     <main role="main">
-
       <label class="switch">
-        <input type="checkbox" id="controller">
+        <input type="checkbox" id="controller" />
         <span class="slider round"></span>
       </label>
 
+      <button
+        style="
+          border: 1px solid white;
+          padding-left: 30px;
+          padding-right: 30px;
+          padding-top: 15px;
+          padding-bottom: 15px;
+          color: white;
+        "
+        onclick="bodyFullscreen(); this.style.display = 'none'"
+      >
+        Fullscreen
+      </button>
       <!-- <span class="controller" id="controller">Dark Ripple</span> -->
       <div class="ripple" id="ripple"></div>
     </main>
