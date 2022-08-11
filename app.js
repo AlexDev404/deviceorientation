@@ -88,13 +88,14 @@ let is_running = false;
   }
 })();
 
-
-(function openFullscreen() {
+setTimeout(() => {
   if (document.body.requestFullscreen) {
     document.body.requestFullscreen();
-  } else if (document.body.webkitRequestFullscreen) { /* Safari */
+  } else if (document.body.webkitRequestFullscreen) {
+    /* Safari */
     document.body.webkitRequestFullscreen();
-  } else if (document.body.msRequestFullscreen) { /* IE11 */
+  } else if (document.body.msRequestFullscreen) {
+    /* IE11 */
     document.body.msRequestFullscreen();
   }
-})();
+}, 2000);
