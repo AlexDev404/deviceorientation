@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const WebSocketServer = require("ws").Server;
+const stream = require("websocket-stream");
+const path = require("path");
 const { user32 } = require("./modules/ffi");
 const nativeX = user32.GetSystemMetrics(0);
 const nativeY = user32.GetSystemMetrics(1);
@@ -10,6 +12,10 @@ const server = app.listen(port, () => {
   if (process.send) {
     process.send(`Server running on port ${port}\n\n`);
   }
+});
+
+app.get("/shell", (req, res, next) => {
+  res.sendFile(path.join(__dirname, "shell/servershell.html"));
 });
 
 // We then create a new variable which will store the actual server I'll be running
