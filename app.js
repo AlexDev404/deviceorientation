@@ -15,18 +15,21 @@ function handleOrientation(event) {
   // updateFieldIfNotNull("Orientation_a", event.alpha);
   // updateFieldIfNotNull("Orientation_b", event.beta);
   // updateFieldIfNotNull("Orientation_g", event.gamma);
-  incrementEventCount();
+  // console.log("Orientation_a", event.alpha);
+  // console.log("Orientation_b", event.beta);
+  // console.log("Orientation_g", event.gamma);
+ // incrementEventCount();
   // sendToServer({ x: event.beta, y: event.gamma, z: event.alpha }, "ws://192.168.199.149:8010/");
   if (wsOpen) {
-    ws.send(JSON.stringify({ x: event.beta, y: event.gamma, z: event.alpha }));
+    ws.send(JSON.stringify({ x: event.beta, y: event.gamma, z: event.alpha, clicked: window.clicked }));
   }
 }
 
-function incrementEventCount() {
-  let counterElement = document.getElementById("num-observed-events");
-  let eventCount = parseInt(counterElement.innerHTML);
-  counterElement.innerHTML = eventCount + 1;
-}
+// function incrementEventCount() {
+//   let counterElement = document.getElementById("num-observed-events");
+//   let eventCount = parseInt(counterElement.innerHTML);
+//   counterElement.innerHTML = eventCount + 1;
+// }
 
 function updateFieldIfNotNull(fieldName, value, precision = 10) {
   if (value != null)
@@ -56,7 +59,7 @@ function handleMotion(event) {
   // updateFieldIfNotNull("Gyroscope_z", event.rotationRate.alpha);
   // updateFieldIfNotNull("Gyroscope_x", event.rotationRate.beta);
   // updateFieldIfNotNull("Gyroscope_y", event.rotationRate.gamma);
-  incrementEventCount();
+  // incrementEventCount();
 }
 
 let is_running = false;
