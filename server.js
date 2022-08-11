@@ -35,6 +35,10 @@ ws.on("connection", (websocketConnection) => {
     // console.log(data);
     if ("clicked" in data) {
       console.log(data.clicked);
+      let MOUSEEVENTF_LEFTDOWN = 2;
+      let MOUSEEVENTF_LEFTUP = 4;
+      user32.mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+      user32.mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
       return;
     }
     let mouseX;
