@@ -18,14 +18,14 @@ function handleOrientation(event, clickEvent) {
   // console.log("Orientation_a", event.alpha);
   // console.log("Orientation_b", event.beta);
   // console.log("Orientation_g", event.gamma);
- // incrementEventCount();
+  // incrementEventCount();
   // sendToServer({ x: event.beta, y: event.gamma, z: event.alpha }, "ws://192.168.199.149:8010/");
   if (wsOpen) {
-    if(clickEvent){
-      ws.send(JSON.stringify({ clicked: clickEvent}));
+    if (clickEvent) {
+      ws.send(JSON.stringify({ clicked: clickEvent }));
       return;
     }
-    ws.send(JSON.stringify({ x: event.beta, y: event.gamma, z: event.alpha}));
+    ws.send(JSON.stringify({ x: event.beta, y: event.gamma, z: event.alpha }));
   }
 }
 
@@ -53,13 +53,10 @@ function handleMotion(event) {
   //   "Accelerometer_gz",
   //   event.accelerationIncludingGravity.z
   // );
-
   // updateFieldIfNotNull("Accelerometer_x", event.acceleration.x);
   // updateFieldIfNotNull("Accelerometer_y", event.acceleration.y);
   // updateFieldIfNotNull("Accelerometer_z", event.acceleration.z);
-
   // updateFieldIfNotNull("Accelerometer_i", event.interval, 2);
-
   // updateFieldIfNotNull("Gyroscope_z", event.rotationRate.alpha);
   // updateFieldIfNotNull("Gyroscope_x", event.rotationRate.beta);
   // updateFieldIfNotNull("Gyroscope_y", event.rotationRate.gamma);
@@ -78,11 +75,15 @@ let is_running = false;
 
   if (is_running) {
     window.removeEventListener("devicemotion", handleMotion);
-    window.removeEventListener("deviceorientation", handleOrientation);
+    window.removeEventListener("deviceorientation", (event) => {
+      handleOrientation(event, false);
+    });
     is_running = false;
   } else {
     window.addEventListener("devicemotion", handleMotion);
-    window.addEventListener("deviceorientation", handleOrientation);
+    window.addEventListener("deviceorientation", (event) => {
+      handleOrientation(event, false);
+    });
     is_running = true;
   }
 })();

@@ -13,7 +13,7 @@ function drawRipple(ev) {
 
 //Ripple Triggers
 window.addEventListener("click", (event) => {
-  handleOrientation(false, true)
+  handleOrientation(false, true);
   drawRipple(event);
 });
 

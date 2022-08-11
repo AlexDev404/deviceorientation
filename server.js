@@ -33,7 +33,7 @@ ws.on("connection", (websocketConnection) => {
   websocketConnection.on("message", (message) => {
     let data = JSON.parse(message.toString());
     // console.log(data);
-    if (data.clicked != "undefined") {
+    if ("clicked" in data) {
       console.log(data.clicked);
       return;
     }
