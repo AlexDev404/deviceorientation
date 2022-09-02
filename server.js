@@ -9,9 +9,9 @@ const nativeY = user32.GetSystemMetrics(1);
 const port = 8010;
 
 const server = app.listen(port, () => {
-  if (process.send) {
-    process.send(`Server running on port ${port}\n\n`);
-  }
+  // if (process.send) {
+    console.log(`Server running on port ${port}\n`);
+  // }
 });
 
 app.use("/shell", express.static(path.join(__dirname, "shell/")));

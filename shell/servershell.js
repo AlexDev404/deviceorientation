@@ -1,7 +1,7 @@
 // cdn.webrtc-experiment.com/MediaStreamRecorder.js
 
 let ws;
-const address = "ws://192.168.199.149:8011/";
+const address = "ws://192.168.199.100:8011/";
 let wsOpen = false;
 if ("WebSocket" in window) {
   // Let us open a web socket

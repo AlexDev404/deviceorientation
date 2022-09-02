@@ -1,5 +1,5 @@
 let ws;
-const address = "ws://10.0.20.40:8010/";
+const address = "ws://192.168.199.100:8010/";
 let wsOpen = false;
 if ("WebSocket" in window) {
   // Let us open a web socket
