@@ -2,11 +2,11 @@ const RtspServer = require("rtsp-streaming-server").default;
 const ffmpeg = require("ffmpeg-static");
 const { spawn } = require("child_process");
 let ip = "127.0.0.1";
-// require("dns").lookup(require("os").hostname(), function (err, add, fam) {
-//   ip = add;
+require("dns").lookup(require("os").hostname(), function (err, add, fam) {
+  ip = add;
 
 // console.log(ip);
-// });
+});
 
 // Server
 const server = new RtspServer({
@@ -32,7 +32,7 @@ const port = 5554;
 const params = [
   "-re",
   "-probesize",
-  "50M",
+  "10M",
   "-f",
   "gdigrab",
   "-framerate",
@@ -46,7 +46,7 @@ const params = [
   "-acodec",
   "libmp3lame",
   "-threads",
-  "4",
+  "0",
   "-f",
   "rtsp",
   // "-rtsp_transport",
@@ -62,5 +62,5 @@ setTimeout(() => {
   stream.on("data", (chunk) => {
     console.log(chunk.toString());
   });
-  console.log("[STREAM] RTSP Opened.")
+  console.log("[STREAM] RTSP Opened.", `\nrtsp://${ip}:${port}/stream`);
 }, 2000);

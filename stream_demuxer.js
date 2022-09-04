@@ -6,7 +6,9 @@ const { proxy, scriptUrl } = require("rtsp-relay")(app);
 const handler = proxy({
   url: `rtsp://127.0.0.1:6900/stream`,
   // if your RTSP stream need credentials, include them in the URL as above
-  verbose: false,
+  verbose: true,
+  // transport: 'tcp'
+  additionalFlags: ['-q', '1']
 });
 
 // the endpoint our RTSP uses
@@ -39,4 +41,6 @@ app.get("/", (req, res) =>
 `)
 );
 
+
 app.listen(2000);
+console.log("[STREAM] Streamer Opened.");
