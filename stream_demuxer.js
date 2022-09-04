@@ -4,7 +4,8 @@ const app = express();
 const { proxy, scriptUrl } = require("rtsp-relay")(app);
 
 const handler = proxy({
-  url: `rtsp://127.0.0.1:6900/stream`,
+  url: `rtsp://127.0.0.1:6900/screen`,
+  // url: `rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4`,
   // if your RTSP stream need credentials, include them in the URL as above
   verbose: true,
   // transport: 'tcp'

@@ -7,12 +7,20 @@ const { user32 } = require("./modules/ffi");
 const nativeX = user32.GetSystemMetrics(0);
 const nativeY = user32.GetSystemMetrics(1);
 const port = 8010;
+// const blobPort = 8011;
+// let blob = null;
 
 const server = app.listen(port, () => {
   // if (process.send) {
-    console.log(`Server running on port ${port}\n`);
+  console.log(`Server running on port ${port}\n`);
   // }
 });
+
+// const server1 = app.listen(blobPort, () => {
+//   if (process.send) {
+//     process.send(`Blob server running on port ${port}\n\n`);
+//   }
+// });
 
 app.use("/shell", express.static(path.join(__dirname, "shell/")));
 
@@ -132,3 +140,41 @@ ws.on("close", () => {
   console.log("[CONNECTION] Client has disconnected.");
 });
 
+// /********************************************************************/
+
+// // Blob Server
+
+// // We then create a new variable which will store the actual server I'll be running
+// const wsb = new WebSocketServer({
+//   // Then we set the parameter of httpServer to the server variable that we said that would be listening on the port specified
+//   //httpServer: server
+//   noServer: true,
+// });
+
+// server1.on("upgrade", (request, socket, head) => {
+//   wsb.handleUpgrade(request, socket, head, (websocket) => {
+//     wsb.emit("connection", websocket, request);
+//   });
+// });
+
+// wsb.on("connection", (websocketConnection) => {
+//   console.log("[BLOB_UPLOAD] Client is Attempting To Connect!");
+
+//   websocketConnection.send(JSON.stringify(["OK"]));
+
+//   websocketConnection.on("message", (message) => {
+//     let data = message;
+//     blob = message;
+//     console.log(data);
+//   });
+// });
+
+// wsb.on("close", () => {
+//   console.log("[BLOB_UPLOAD] Client has disconnected.");
+// });
+
+// /********************************************************************/
+
+// app.get("/blob.mp4", (req, res) => {
+//   res.send(blob);
+// });

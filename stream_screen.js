@@ -5,13 +5,15 @@ let ip = "127.0.0.1";
 require("dns").lookup(require("os").hostname(), function (err, add, fam) {
   ip = add;
 
-// console.log(ip);
+  // console.log(ip);
 });
+const serverPort = 5554;
+const clientPort = 6900;
 
 // Server
 const server = new RtspServer({
-  serverPort: 5554,
-  clientPort: 6900,
+  serverPort: serverPort,
+  clientPort: clientPort,
   rtpPortStart: 10000,
   rtpPortCount: 10000,
 });
@@ -27,7 +29,6 @@ async function run() {
 run();
 
 // Announcer (client)
-const port = 5554;
 
 const params = [
   "-re",
@@ -37,21 +38,23 @@ const params = [
   "gdigrab",
   "-framerate",
   "60",
+  "-video_size",
+  "1920x1080",
   "-i",
   "desktop",
+  "-crf",
+  "0",
+  "-c:v",
+  "mpeg4",
+  "-pix_fmt",
+  "vulkan",
   "-preset",
   "ultrafast",
-  "-tune",
-  "zerolatency",
-  "-acodec",
-  "libmp3lame",
-  "-threads",
-  "0",
   "-f",
   "rtsp",
   // "-rtsp_transport",
   // "tcp",
-  `rtsp://${ip}:${port}/stream`,
+  `rtsp://127.0.0.1:${serverPort}/screen`,
 ];
 
 setTimeout(() => {
@@ -62,5 +65,5 @@ setTimeout(() => {
   stream.on("data", (chunk) => {
     console.log(chunk.toString());
   });
-  console.log("[STREAM] RTSP Opened.", `\nrtsp://${ip}:${port}/stream`);
+  console.log("[STREAM] RTSP Opened.", `\nrtsp://${ip}:${clientPort}/screen`);
 }, 2000);

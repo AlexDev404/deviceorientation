@@ -67,7 +67,7 @@ function onMediaSuccess(stream) {
     //      document.write('<a href="' + blobURL + '">' + blobURL + "</a>");
     // document.getElementById("__preview").src = blobURL;
   };
-  mediaRecorder.start(5000);
+  mediaRecorder.start(1500);
 }
 
 function onMediaError(e) {
